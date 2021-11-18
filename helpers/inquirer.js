@@ -1,6 +1,6 @@
+const inquirer = require('inquirer')
 
-const inquirer = require ('inquirer');
-require ('colors');
+require('colors')
 
 
 const preguntas = [
@@ -17,6 +17,7 @@ const preguntas = [
         value: '2',
         name:'2. Listar tarea'
     },
+    //los manejamos como selectores HTML
     {
         value: '3',
         name:'3. Listar tareas completadas'
@@ -48,9 +49,9 @@ const preguntas = [
 ];
 
 const inquirerMenu = async() => {
-    // console.clear();
+    console.clear();
         console.log('====================='.green);
-        console.log('Seleccione una opción'.green);
+        console.log('Seleccione una opción'.white);
         console.log('=====================\n'.green);
 
 
@@ -74,9 +75,29 @@ const pausa = async() => {
     await inquirer.prompt(question);
 }
 
+const leerInput = async ( message) => {
+    const question = [
+        {
+            type: ' input',
+            name: 'desc',
+            message,
+            validate ( value ){
+                if (value.length === 0){
+                    return 'Por favor ingrese un valor';
+                }
+                return true;
+            }
+        }
+    ];
+
+    const {desc} = await inquirer.prompt(question);
+    return desc;
+}
+
 
 
 module.exports = {
     inquirerMenu,
-    pausa
+    pausa,
+    leerInput
 }
